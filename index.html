@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>K-Agent Android privacy policy draft</title>
+  <style>
+    body { font: 16px/1.6 system-ui, sans-serif; max-width: 48rem; margin: 3rem auto; padding: 0 1.25rem; color: #202124; }
+    h1, h2 { line-height: 1.25; }
+    .notice { border-left: 4px solid #a15c00; background: #fff5df; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>K-Agent Android privacy policy draft</h1>
+    <p class="notice"><strong>Not ready for Google Play submission.</strong>
+      Release hosting, model routing, and log retention are not yet confirmed.
+      This draft describes the current app and gateway code and must be checked
+      against the actual deployment before release. The proposed effective date
+      is November 19, 2026.</p>
+
+    <h2>Application and contact</h2>
+    <p>K-Agent for Android (<code>com.kensly.kagent</code>) lets you send a
+      conversation to a configured gateway and receive model-generated responses.
+      The developer is bighartedbon. Contact:
+      <a href="mailto:efroidissement@gmail.com">efroidissement@gmail.com</a>.</p>
+
+    <h2>Information used by the app</h2>
+    <p>The app stores the conversation and the gateway secret in encrypted
+      storage on your device. It sends the entire saved conversation and the
+      gateway secret to the configured gateway when you request a response.
+      Release builds require an HTTPS gateway connection.</p>
+    <p>The app excludes its data from Android backup. You can delete the saved
+      conversation using <strong>New conversation</strong>; clearing the app's
+      data or uninstalling the app also deletes its locally stored data,
+      including the gateway secret. These actions do not necessarily delete
+      information held by a gateway, hosting service, or model provider.</p>
+
+    <h2>Gateway and model processing</h2>
+    <p>The current gateway sends conversation messages to its configured Ollama
+      service for model inference. Cloud fallback is off by default. If you enable
+      <strong>Allow Gemini fallback</strong> and local inference fails, the
+      gateway may send the full submitted conversation to Google's Gemini API.
+      Google processes that information under the terms applicable to the
+      gateway operator's Gemini configuration.</p>
+    <p>The gateway's audit log records request metadata including the client IP
+      address, timestamp, request method and path, response status, and duration.
+      Chat turn telemetry records timing, status, a trace identifier, and, when
+      available, the model provider. Provider error or malformed response bodies
+      may also be included in gateway error logs. Hosting or network services may
+      collect additional information. Retention periods depend on the release
+      deployment and have not yet been confirmed.</p>
+    <p>The developer states that personal data is not sold. To request access
+      to or deletion of information held outside your device, contact the
+      address above; the intended response time is within 30 days.</p>
+
+    <h2>Decisions required before publication as a release policy</h2>
+    <ul>
+      <li>Confirm the release gateway operator, hosting provider, location, and
+        all providers that process or store data. Google Cloud Run and Gemini
+        have been proposed, but the release deployment was also described as
+        undecided.</li>
+      <li>Verify the actual model routing, including where Ollama runs and
+        whether Gemini or any other services are enabled.</li>
+      <li>Verify what the deployed gateway, model services, and hosting provider
+        retain, including chat content and logs, and document retention periods
+        and deletion procedures.</li>
+      <li>Verify encryption for connections between the deployed gateway and
+        model services, and that provider terms match the actual configuration.</li>
+      <li>Confirm the developer's public legal identity, access and deletion
+        procedures, and effective date.</li>
+    </ul>
+  </main>
+</body>
+</html>
