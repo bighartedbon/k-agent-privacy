@@ -1,76 +1,114 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <title>K-Agent Android privacy policy draft</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — K-Agent A.I. Engineer</title>
   <style>
-    body { font: 16px/1.6 system-ui, sans-serif; max-width: 48rem; margin: 3rem auto; padding: 0 1.25rem; color: #202124; }
-    h1, h2 { line-height: 1.25; }
-    .notice { border-left: 4px solid #a15c00; background: #fff5df; padding: 1rem; }
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --fg: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --fg: #f1f5f9;
+        --muted: #94a3b8;
+        --border: #1e293b;
+        --accent: #60a5fa;
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem;
+    }
+    h1 { font-size: 1.85rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.2rem; margin-top: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.35rem; }
+    p, li { font-size: 0.98rem; }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: var(--accent); }
+    ul { padding-left: 1.25rem; }
   </style>
 </head>
 <body>
-  <main>
-    <h1>K-Agent Android privacy policy draft</h1>
-    <p class="notice"><strong>Not ready for Google Play submission.</strong>
-      Release hosting, model routing, and log retention are not yet confirmed.
-      This draft describes the current app and gateway code and must be checked
-      against the actual deployment before release. The proposed effective date
-      is November 19, 2026.</p>
+  <h1>Privacy Policy</h1>
+  <div class="meta">
+    <strong>App:</strong> K-Agent A.I. Engineer (<code>io.bighartedbon.kagent</code>)<br />
+    <strong>Developer / Operator:</strong> bighartedbon<br />
+    <strong>Effective Date:</strong> November 19, 2026
+  </div>
 
-    <h2>Application and contact</h2>
-    <p>K-Agent for Android (<code>com.kensly.kagent</code>) lets you send a
-      conversation to a configured gateway and receive model-generated responses.
-      The developer is bighartedbon. Contact:
-      <a href="mailto:efroidissement@gmail.com">efroidissement@gmail.com</a>.</p>
+  <p>
+    K-Agent A.I. Engineer ("the App") lets you send conversations to a configured gateway and receive
+    model-generated responses. This Privacy Policy explains how <strong>bighartedbon</strong> ("we", "our", or "us")
+    handles information when you use the App and its release gateway.
+  </p>
 
-    <h2>Information used by the app</h2>
-    <p>The app stores the conversation and the gateway secret in encrypted
-      storage on your device. It sends the entire saved conversation and the
-      gateway secret to the configured gateway when you request a response.
-      Release builds require an HTTPS gateway connection.</p>
-    <p>The app excludes its data from Android backup. You can delete the saved
-      conversation using <strong>New conversation</strong>; clearing the app's
-      data or uninstalling the app also deletes its locally stored data,
-      including the gateway secret. These actions do not necessarily delete
-      information held by a gateway, hosting service, or model provider.</p>
+  <h2>1. Information Used by the App</h2>
+  <ul>
+    <li><strong>On-Device Storage:</strong> The App stores your active conversation and gateway secret in encrypted storage on your device and excludes its data from Android cloud backup.</li>
+    <li><strong>Data Sent on Request:</strong> When you request a response, the App sends the saved conversation and gateway secret over HTTPS to the configured gateway.</li>
+    <li><strong>No Ads or Accounts:</strong> The App does not require user account registration, does not include third-party advertising SDKs, and does not use the Android Advertising ID.</li>
+  </ul>
 
-    <h2>Gateway and model processing</h2>
-    <p>The current gateway sends conversation messages to its configured Ollama
-      service for model inference. Cloud fallback is off by default. If you enable
-      <strong>Allow Gemini fallback</strong> and local inference fails, the
-      gateway may send the full submitted conversation to Google's Gemini API.
-      Google processes that information under the terms applicable to the
-      gateway operator's Gemini configuration.</p>
-    <p>The gateway's audit log records request metadata including the client IP
-      address, timestamp, request method and path, response status, and duration.
-      Chat turn telemetry records timing, status, a trace identifier, and, when
-      available, the model provider. Provider error or malformed response bodies
-      may also be included in gateway error logs. Hosting or network services may
-      collect additional information. Retention periods depend on the release
-      deployment and have not yet been confirmed.</p>
-    <p>The developer states that personal data is not sold. To request access
-      to or deletion of information held outside your device, contact the
-      address above; the intended response time is within 30 days.</p>
+  <h2>2. Gateway Hosting &amp; Model Processing</h2>
+  <ul>
+    <li><strong>Hosting Provider:</strong> The release gateway is operated by bighartedbon and hosted on <strong>Google Cloud Run (europe-west2)</strong>.</li>
+    <li><strong>Model Routing:</strong> In the public Cloud Run release, submitted conversation messages are routed over HTTPS/TLS to the <strong>Google Gemini API</strong> for model inference (subject to Google Cloud and Gemini API terms). Local Ollama inference is disabled in the public Cloud Run release and applies only if you self-host your own gateway.</li>
+    <li><strong>Additional Tools:</strong> If optional tools (such as Google Maps) are invoked, only the query parameters needed for that request are transmitted.</li>
+  </ul>
 
-    <h2>Decisions required before publication as a release policy</h2>
-    <ul>
-      <li>Confirm the release gateway operator, hosting provider, location, and
-        all providers that process or store data. Google Cloud Run and Gemini
-        have been proposed, but the release deployment was also described as
-        undecided.</li>
-      <li>Verify the actual model routing, including where Ollama runs and
-        whether Gemini or any other services are enabled.</li>
-      <li>Verify what the deployed gateway, model services, and hosting provider
-        retain, including chat content and logs, and document retention periods
-        and deletion procedures.</li>
-      <li>Verify encryption for connections between the deployed gateway and
-        model services, and that provider terms match the actual configuration.</li>
-      <li>Confirm the developer's public legal identity, access and deletion
-        procedures, and effective date.</li>
-    </ul>
-  </main>
+  <h2>3. Operational Logs &amp; Telemetry</h2>
+  <p>To maintain security, reliability, and diagnostics, the gateway records:</p>
+  <ul>
+    <li><strong>Audit Logs:</strong> Client IP address, timestamp, HTTP request method and path, response status, and request duration.</li>
+    <li><strong>Chat Turn Telemetry:</strong> Timing, status, trace identifier, and model provider name.</li>
+    <li><strong>Error Logs:</strong> If a provider error or malformed response occurs, error details may be logged for troubleshooting.</li>
+  </ul>
+  <p>
+    Conversation contents are processed transiently to generate responses and are not stored in a persistent user
+    database operated by us. Standard Cloud Run operational logs are retained temporarily (typically up to 30 days)
+    by the hosting infrastructure and automatically purged.
+  </p>
+
+  <h2>4. Data Selling &amp; Sharing</h2>
+  <p>
+    <strong>We do not sell personal data.</strong> Information is shared only with the hosting and model providers
+    listed above strictly to operate the service, or when required by law.
+  </p>
+
+  <h2>5. Security</h2>
+  <p>
+    Release builds require an <strong>HTTPS/TLS</strong> connection between the App and the gateway, and connections
+    between the gateway and external model/tool providers also use HTTPS/TLS encryption in transit.
+  </p>
+
+  <h2>6. Your Controls, Retention &amp; Deletion</h2>
+  <ul>
+    <li><strong>On-Device Deletion:</strong> You can delete your saved conversation at any time using <em>New conversation</em> inside the App, or delete all local data (including the gateway secret) by clearing App data in Android settings or uninstalling the App.</li>
+    <li><strong>Off-Device Access &amp; Deletion:</strong> Clearing on-device data does not automatically erase temporary server logs or data processed by external model providers. To request access to or deletion of off-device records held by us, email <a href="mailto:efroidissement@gmail.com">efroidissement@gmail.com</a>. Verified requests are handled within 30 days.</li>
+  </ul>
+
+  <h2>7. Children's Privacy</h2>
+  <p>
+    The App is a developer and engineering tool not directed at children under 13 (or the applicable age of digital
+    consent in your jurisdiction), and we do not knowingly collect personal information from children.
+  </p>
+
+  <h2>8. Changes &amp; Contact</h2>
+  <p>
+    Updates to this Privacy Policy will be posted on this page with a revised effective date. For any privacy
+    questions or deletion requests, contact <strong>bighartedbon</strong> at
+    <a href="mailto:efroidissement@gmail.com">efroidissement@gmail.com</a>.
+  </p>
 </body>
 </html>
